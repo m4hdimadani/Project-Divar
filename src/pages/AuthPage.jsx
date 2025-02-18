@@ -8,8 +8,12 @@ function AuthPage() {
   const [code, setCode] = useState("");
   return (
     <div>
-      {step === 1 && <SendOtpForme />}
-      {step === 2 && <CheckOtpForm />}
+      {step === 1 && (
+        <SendOtpForme setStep={setStep} setMobile={setMobile} mobile={mobile} />
+      )}
+      {step === 2 && (
+        <CheckOtpForm setStep={setStep} setCode={setCode} code={code} mobile={mobile} />
+      )}
     </div>
   );
 }
