@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { checkOtp } from "services/auth";
 import { getProfile } from "src/services/user";
 import { setCookie } from "src/utils/cookie";
+import styles from "./CheckOtpForm.module.css";
 
 function CheckOtpForm({ code, setCode, setStep, mobile }) {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ function CheckOtpForm({ code, setCode, setStep, mobile }) {
 
     const { response, error } = await checkOtp(mobile, code);
 
-    if (response) { 
+    if (response) {
       setCookie(response.data);
       navigate("/");
       refetch();
@@ -27,7 +28,7 @@ function CheckOtpForm({ code, setCode, setStep, mobile }) {
     }
   };
   return (
-    <form onSubmit={submitHandler}>
+    <form onSubmit={submitHandler} className={styles.form}>
       <div>
         <Toaster />
       </div>
@@ -42,7 +43,7 @@ function CheckOtpForm({ code, setCode, setStep, mobile }) {
         onChange={(e) => setCode(e.target.value)}
       />
       <button type="submit">ورود</button>
-      <button onClick={() => setStep(1)}>تغییر شماره موبایل</button>
+      <button onClick={() => setStep(1)} className={styles.backButton}>تغییر شماره موبایل</button>
     </form>
   );
 }
