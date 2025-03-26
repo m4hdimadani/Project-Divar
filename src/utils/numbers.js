@@ -1,0 +1,3 @@
+const sp = () => {};
+
+export { sp };
