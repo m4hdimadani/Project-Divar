@@ -4,6 +4,8 @@ import { useState } from "react";
 import { getCategory } from "src/services/admin";
 
 import styles from "./AddPost.module.css";
+import { getCookie } from "src/utils/cookie";
+import axios from "axios";
 
 function AddPost() {
   const [form, setForm] = useState({
@@ -28,6 +30,22 @@ function AddPost() {
 
   const addHandler = (event) => {
     event.preventDefault();
+
+    const formData = new FormData();
+    for (let i in form) {
+      formData.append(i, form[i]);
+    }
+    const token = getCookie("accessToken");
+
+    axios
+      .post(`${import.meta.env.VITE_BASE_URL}post/create`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `barer ${token}`,
+        },
+      })
+      .then((res) => console.log(res))
+      .catch((error) => console.log(error));
   };
   return (
     <form onChange={changHandler} className={styles.form}>
@@ -37,7 +55,7 @@ function AddPost() {
       <label htmlFor="content">توضیجات</label>
       <textarea name="content" id="content" />
       <label htmlFor="amount"> قیمت</label>
-      <input type="text" name="amount" id="amount" />
+      <input type="number" name="amount" id="amount" />
       <label htmlFor="city"> شهر</label>
       <input type="text" name="city" id="city" />
       <label htmlFor="category"> دسته بندی</label>
