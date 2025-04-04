@@ -3,6 +3,8 @@ import { useState } from "react";
 
 import { getCategory } from "src/services/admin";
 
+import styles from "./AddPost.module.css";
+
 function AddPost() {
   const [form, setForm] = useState({
     title: "",
@@ -28,7 +30,7 @@ function AddPost() {
     event.preventDefault();
   };
   return (
-    <form onChange={changHandler}>
+    <form onChange={changHandler} className={styles.form}>
       <h3>افزودن آگهی</h3>
       <label htmlFor="title">عنوان آگهی</label>
       <input type="text" name="title" id="title" />
