@@ -6,6 +6,7 @@ import { getCategory } from "src/services/admin";
 import styles from "./AddPost.module.css";
 import { getCookie } from "src/utils/cookie";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 function AddPost() {
   const [form, setForm] = useState({
@@ -44,8 +45,8 @@ function AddPost() {
           Authorization: `barer ${token}`,
         },
       })
-      .then((res) => console.log(res))
-      .catch((error) => console.log(error));
+      .then((res) => toast.success(res.data.message))
+      .catch((error) => toast.error("مشکلی پیش آمده است"));
   };
   return (
     <form onChange={changHandler} className={styles.form}>
@@ -69,6 +70,7 @@ function AddPost() {
       <label htmlFor="images"> شهر</label>
       <input type="file" name="images" id="images" />
       <button onClick={addHandler}>ایجاد</button>
+     
     </form>
   );
 }
